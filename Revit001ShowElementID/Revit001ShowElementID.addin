@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Assembly>Revit001ShowElementID.dll</Assembly>
+    <AddInId>44889520-0837-45EF-8421-B167A2B77FCE</AddInId>
+    <FullClassName>Revit001ShowElementID.GetElementID</FullClassName>
+    <Text>Get Element ID</Text>
+    <VendorId>vikas9844</VendorId>
+    <VendorDescription>Developer: Vikas Singh, Individual Developer, Email: vikas9844@gmail.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
