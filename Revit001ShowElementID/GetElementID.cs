@@ -18,20 +18,38 @@ namespace Revit001ShowElementID
             try
             {
                 UIDocument uiDoc = commandData.Application.ActiveUIDocument;
+                Document doc = uiDoc.Document;
+
                 IList<Reference> pickedObject = uiDoc.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element);
 
                 StringBuilder allIDs = new StringBuilder();
 
                 if (pickedObject.Count > 0)
                 {
-                    foreach(Reference item in pickedObject)
+                    //Getting all selected elements
+                    List<Element> selectedElements = new List<Element>();
+                    foreach (Reference item in pickedObject)
                     {
-                        allIDs.Append(item.ElementId.ToString());
-                        allIDs.Append("\n");
+                        selectedElements.Add(doc.GetElement(item));
+                    }
+                    
+                    ////Getting all selected elementIDs                    
+                    //foreach (Reference item in pickedObject)
+                    //{
+                    //    allIDs.Append(item.ElementId.ToString());
+                    //    allIDs.Append("\n");
+                    //}
+
+                    //Collect Selected Object's Details
+                    for(int i = 0; i<selectedElements.Count; i++)
+                    {
+
+                        ElementType eleType = doc.GetElement(selectedElements[i].GetTypeId()) as ElementType;
+                        allIDs.Append (eleType.FamilyName + " " + selectedElements[i].Name + "[" + selectedElements[i].Id + "]\n");
                     }
                 }
 
-                TaskDialog.Show("Element ID", allIDs.ToString());
+                TaskDialog.Show("Selected Items", allIDs.ToString());
                 return Result.Succeeded;
             }
             catch (Exception e)
